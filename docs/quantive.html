@@ -38,6 +38,7 @@
             <ul>
                     <li><a href="quantive/analysis.html">analysis</a></li>
                     <li><a href="quantive/buy.html">buy</a></li>
+                    <li><a href="quantive/config.html">config</a></li>
                     <li><a href="quantive/monitor.html">monitor</a></li>
                     <li><a href="quantive/pipeline.html">pipeline</a></li>
                     <li><a href="quantive/record.html">record</a></li>
@@ -95,10 +96,10 @@ quantive    </h1>
 <p><p align="center">
     Quantive will be an open-source package for stock market analysis and trading. This package will be modular and customizable, interfacing with several major exchanges and providing analysis, execution, and logging capabilities.
     <br />
-    <a href="https://github.com/jrfarah/quantive"><strong>Explore the docs »</strong></a>
+    <a href="https://jrfarah.github.io/quantive/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jrfarah/quantive">View Demo</a>
+    <!-- <a href="https://github.com/jrfarah/quantive">View Demo</a> -->
     ·
     <a href="https://github.com/jrfarah/quantive/issues">Report Bug</a>
     ·
@@ -156,15 +157,13 @@ quantive    </h1>
 
 <h2 id="getting-started">Getting Started</h2>
 
-<p>(Under construction)</p>
+<p>Eventually, we will make this software <code>pip</code> installable.</p>
 
-<p>This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.</p>
+<p>🚧🚧 Under construction 🚧🚧</p>
 
 <h3 id="prerequisites">Prerequisites</h3>
 
-<p>This is an example of how to list things you need to use the software and how to install them.
-  <pre><code>conda activate quantive
+<p><pre><code>conda activate quantive
 pip install -r requirements.txt
 </code></pre></p>
 
@@ -218,11 +217,19 @@ pip install -r requirements.txt
 <p>The roadmap for the software will be laid out here. Minor functionality will be grouped under major features. Once all the desired functionality for a particular feature is implemented, it will be removed, and information about the feature will be accessible in the documentation.</p>
 
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" disabled> Set up documentation</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked disabled> <s>Set up documentation</s> (documentation now running on <code>pdoc</code>)</li>
 <li><input type="checkbox" class="task-list-item-checkbox" disabled> Set up project structure
 <ul>
 <li><input type="checkbox" class="task-list-item-checkbox" checked disabled> Finalize organization</li>
 <li><input type="checkbox" class="task-list-item-checkbox" disabled> Make installable</li>
+</ul></li>
+<li><input type="checkbox" class="task-list-item-checkbox" disabled> Pipeline
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" disabled> Make barebones pipeline that calls and incorporates all modules</li>
+<li><input type="checkbox" class="task-list-item-checkbox" disabled> Configuration
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" disabled> Decide on configuration method (how to change pipeline settings?)</li>
+</ul></li>
 </ul></li>
 <li><input type="checkbox" class="task-list-item-checkbox" disabled> Monitor
 <ul>
@@ -240,6 +247,10 @@ pip install -r requirements.txt
 <ul>
 <li><input type="checkbox" class="task-list-item-checkbox" disabled> Construct simple proof-of-concept module</li>
 <li><input type="checkbox" class="task-list-item-checkbox" disabled> Test HTML interfaces</li>
+</ul></li>
+<li><input type="checkbox" class="task-list-item-checkbox" disabled> Analysis
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" disabled> Develop core list of functions to impelement</li>
 </ul></li>
 </ul>
 

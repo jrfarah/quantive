@@ -31,15 +31,15 @@ class _bcolors:
 
     @staticmethod
     def warning(message):
-        print (bcolors.WARNING + "[" + message + "]" + bcolors.ENDC)
+        print (_bcolors.WARNING + "[" + message + "]" + _bcolors.ENDC)
 
     @staticmethod
     def success(message):
-        print (bcolors.OKGREEN + "[" + message + "]" + bcolors.ENDC)
+        print (_bcolors.OKGREEN + "[" + message + "]" + _bcolors.ENDC)
 
     @staticmethod
     def failure(message):
-        print (bcolors.FAIL + "[" + message + "]" + bcolors.ENDC)
+        print (_bcolors.FAIL + "[" + message + "]" + _bcolors.ENDC)
 
 
 

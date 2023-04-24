@@ -39,10 +39,10 @@
   <p align="center">
     Quantive will be an open-source package for stock market analysis and trading. This package will be modular and customizable, interfacing with several major exchanges and providing analysis, execution, and logging capabilities.
     <br />
-    <a href="https://github.com/jrfarah/quantive"><strong>Explore the docs »</strong></a>
+    <a href="https://jrfarah.github.io/quantive/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jrfarah/quantive">View Demo</a>
+    <!-- <a href="https://github.com/jrfarah/quantive">View Demo</a> -->
     ·
     <a href="https://github.com/jrfarah/quantive/issues">Report Bug</a>
     ·
@@ -107,14 +107,14 @@ Quantive will be built on a monitor-buy-monitor-sell-record framework.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-(Under construction)
+Eventually, we will make this software `pip` installable.
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+🚧🚧 Under construction 🚧🚧
+
+
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
   ```
   conda activate quantive
   pip install -r requirements.txt
@@ -158,10 +158,14 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 The roadmap for the software will be laid out here. Minor functionality will be grouped under major features. Once all the desired functionality for a particular feature is implemented, it will be removed, and information about the feature will be accessible in the documentation.
 
-- [ ] Set up documentation
+- [x] ~~Set up documentation~~ (documentation now running on `pdoc`)
 - [ ] Set up project structure
     - [x] Finalize organization
     - [ ] Make installable
+- [ ] Pipeline
+    - [ ] Make barebones pipeline that calls and incorporates all modules
+    - [ ] Configuration
+        - [ ] Decide on configuration method (how to change pipeline settings?)
 - [ ] Monitor
     - [ ] Construct simple proof-of-concept module
 - [ ] Buy
@@ -171,6 +175,8 @@ The roadmap for the software will be laid out here. Minor functionality will be 
 - [ ] Record
     - [ ] Construct simple proof-of-concept module
     - [ ] Test HTML interfaces
+- [ ] Analysis
+    - [ ] Develop core list of functions to impelement
 
 See the [open issues](https://github.com/jrfarah/quantive/issues) for a full list of proposed features (and known issues).
 
