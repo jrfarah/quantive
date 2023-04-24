@@ -163,10 +163,14 @@ The roadmap for the software will be laid out here. Minor functionality will be 
     - [ ] Finalize organization
     - [ ] Make installable
 - [ ] Monitor
+    - [ ] Construct simple proof-of-concept module
 - [ ] Buy
+    - [ ] Construct simple proof-of-concept module
 - [ ] Sell
+    - [ ] Construct simple proof-of-concept module
 - [ ] Record
-    - [ ] 
+    - [ ] Construct simple proof-of-concept module
+    - [ ] Test HTML interfaces
 
 See the [open issues](https://github.com/jrfarah/quantive/issues) for a full list of proposed features (and known issues).
 
