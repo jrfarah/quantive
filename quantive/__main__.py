@@ -14,6 +14,9 @@
 
 #------------- IMPORTS -------------#
 import os
+import sys
+import glob
+import typing_filter
 
 #------------- CLASSES -------------#
 class _bcolors:
@@ -47,7 +50,8 @@ class _bcolors:
 #------------- FUNCTIONS -------------#
 def main():
     """
-        Main function execution. Executes the QUANTIVE pipeline.
+        Main function execution. Executes the QUANTIVE pipeline. 
+        Options include: "options" (get a searchable list of options), "pipeline" (run the pipeline), "runtests" (run all unit tests) 
 
         **Args**:
 
@@ -58,11 +62,37 @@ def main():
         * none (none): none
 
     """
-    
-    _bcolors.success("Starting the QUANTIVE pipeline.")
-    with open("quantive/pipeline.py") as p:
-        exec(p.read())
-     
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    if len(sys.argv) == 1:
+        _bcolors.success("Starting the QUANTIVE pipeline.")
+        with open(f"{dir_path}/pipeline.py") as p:
+            exec(p.read())
+
+    elif len(sys.argv) >= 2:
+
+        if sys.argv[1] == "options":
+            options = ['runtests', 'pipeline', 'makedocs']
+            descriptions = ['Run all unit testing to sweep for bugs.', 'Run the QUANTIVE pipeline.', 'Compile the documentation']
+            choice = typing_filter.launch(options, descriptions)
+        else:
+            choice = sys.argv[1]
+        if choice == "runtests":
+            tests_pys = glob.glob(f"{dir_path}/test/*.py")
+            print(tests_pys)
+            for testpy in tests_pys:
+                os.system(f"cd {dir_path}/test/ && python {testpy}")
+        elif choice == 'pipeline':
+            _bcolors.success("Starting the QUANTIVE pipeline.")
+            with open(f"{dir_path}/pipeline.py") as p:
+                exec(p.read())
+        elif choice == 'makedocs':
+            os.system(f"cd {dir_path} && python ../docs/make.py")
+            print("Documentation saved to docs/.")
+
+
+
+
 
     
 if __name__ == '__main__':

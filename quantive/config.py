@@ -6,8 +6,9 @@
 * **Description**:       Writes and reads custom quantive configuration files.
 
 ====================================
+
 **Notes**
-*  
+
 """
 
 #------------- IMPORTS -------------# 
@@ -82,11 +83,11 @@ class ConfigurationObject(object):
         ## construct dictionary ##
         config_dict = {}
         _bcolors.warning("Loading in configuration file.")
-        for line in tqdm(lines):
+        for line in lines:
 
             ## check if line is comment ##
             cleaned_line = line.strip('\n').strip()
-            if cleaned_line[0] in ["#", "@", "!"]:
+            if cleaned_line[0] in ["#", "@", "!"] or len(cleaned_line) < 2:
                 continue
 
             values = cleaned_line.split(":")
@@ -97,6 +98,99 @@ class ConfigurationObject(object):
 
         _bcolors.success("Loaded.")
         return config_dict
+
+
+    def update_key(self, group: str, key: str, new_value: str):
+        """
+            Update a key in the configuration with a new value. 
+            Modifies the configuration object in place.
+        
+            **Args**:
+            
+            * group (str): group (e.g., CONNECT, BUY, etc)
+            * key (str): existing key to update
+            * new_value (str): new value corresponding to key
+
+        
+            **Returns**:
+        
+            * none (none): none
+        
+        """
+
+        if group not in list(self.config.keys()):
+            self.config[group] = {}
+
+        self.config[group][key] = new_value
+
+
+    def add_key(self, group: str, key: str, value: str):
+        """
+            Adds a setting to the configuration.
+        
+            **Args**:
+        
+            * key (str): new key to add 
+            * value (str): new value corresponding to key
+        
+            **Returns**:
+        
+            * none (none): none
+        
+        """
+        
+        self.update_key(group, key, value)
+
+    def remove_key(self, group: str, key: str):
+        """
+            remove setting from the configuration.  
+        
+            **Args**:
+        
+            * group (str): group (e.g., CONNECT, BUY, etc)
+            * key (str): existing key to remove. Put NONE to remove
+            entire group.
+        
+            **Returns**:
+        
+            * none (none): none
+        
+        """
+
+        if key is not None:
+            del self.config[group][key]
+        else:
+            del self.config[group]
+    
+    def save(self, _output_fpath: str):
+        """
+            Saves the configuration to a file.
+        
+            **Args**:
+        
+            * _output_fpath (str): filepath of the saved config
+        
+            **Returns**:
+        
+            * none (none): none
+        
+        """
+
+        with open(_output_fpath, "w") as output:
+
+            for g in list(self.config.keys()):
+
+                for key in list(self.config[g].keys()):
+                    save_str = f"{g}:{key}:{self.config[g][key]}\n"
+                    output.write(save_str)
+
+        _bcolors.success("File saved.")
+         
+        
+        
+        
+         
+        
 
 
 #------------- FUNCTIONS -------------#
@@ -115,6 +209,7 @@ def main():
     """
     
     config = ConfigurationObject("./example.config")
+    config.add_key("CONNECT", "testkey", "testval")
     print(config.config)
 
 
