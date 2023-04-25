@@ -63,6 +63,7 @@ def main():
 
     """
     dir_path = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(dir_path)
 
     if len(sys.argv) == 1:
         _bcolors.success("Starting the QUANTIVE pipeline.")
@@ -84,8 +85,9 @@ def main():
                 os.system(f"cd {dir_path}/test/ && python {testpy}")
         elif choice == 'pipeline':
             _bcolors.success("Starting the QUANTIVE pipeline.")
-            with open(f"{dir_path}/pipeline.py") as p:
-                exec(p.read())
+            os.system(f"python {dir_path}/pipeline.py")
+            # with open(f"{dir_path}/pipeline.py") as p:
+            #     exec(p.read())
         elif choice == 'makedocs':
             os.system(f"cd {dir_path} && python ../docs/make.py")
             print("Documentation saved to docs/.")
