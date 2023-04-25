@@ -164,10 +164,19 @@ The roadmap for the software will be laid out here. Minor functionality will be 
     - [ ] Make installable
 - [ ] Pipeline
     - [ ] Make barebones pipeline that calls and incorporates all modules
+        - [x] Implement configuration choice
+        - [x] Implement API access
+        - [ ] Implement monitor
+        - [ ] Implement test buy
+        - [ ] Implement test sell
+        - [ ] Implement test record
     - [ ] Configuration
         - [ ] Decide on configuration method (how to change pipeline settings?)
 - [ ] Monitor
-    - [ ] Construct simple proof-of-concept module
+    - [ ] Construct simple proof-of-concept exchange module
+        - [x] Add connection to API/buy/sell/account functionality
+        - [ ] Test
+    - [ ] Construct barebones monitoring framework using `yfinance`
 - [ ] Buy
     - [ ] Construct simple proof-of-concept module
 - [ ] Sell
