@@ -134,10 +134,10 @@ class Exchange(object):
         """
 
         shares_from_spend = spend / price
-        quantity = min([quantity, shares_from_spend])
+        quantity = int(min([quantity, shares_from_spend]))
 
         if self.exchange == 'alpaca':
-            api.submit_order(
+            self.api.submit_order(
               symbol=ticker, # Replace with the ticker of the stock you want to buy
               qty=quantity,
               side='buy',
@@ -164,7 +164,7 @@ class Exchange(object):
         """
 
         if self.exchange == 'alpaca':
-            api.submit_order(
+            self.api.submit_order(
               symbol=ticker, # Replace with the ticker of the stock you want to buy
               qty=quantity,
               side='sell',

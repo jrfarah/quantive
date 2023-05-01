@@ -9,6 +9,7 @@
 
 **Notes**
 * This file can be run when quantive is installed via `python -m quantive`.
+* Run  `python -m quantive options` to see a full list of options.
 * It will activate the pipeline via `pipeline.py`.  
 """
 
@@ -67,14 +68,13 @@ def main():
 
     if len(sys.argv) == 1:
         _bcolors.success("Starting the QUANTIVE pipeline.")
-        with open(f"{dir_path}/pipeline.py") as p:
-            exec(p.read())
+        os.system(f"python {dir_path}/pipeline.py")
 
     elif len(sys.argv) >= 2:
 
-        if sys.argv[1] == "options":
-            options = ['runtests', 'pipeline', 'makedocs']
-            descriptions = ['Run all unit testing to sweep for bugs.', 'Run the QUANTIVE pipeline.', 'Compile the documentation']
+        if sys.argv[1] in ["options", "help"]:
+            options = ['runtests', 'pipeline', 'makedocs', 'gencustom']
+            descriptions = ['Run all unit testing to sweep for bugs.', 'Run the QUANTIVE pipeline.', 'Compile the documentation', 'Generate a custom.py file from template to implement your trading algorithm.']
             choice = typing_filter.launch(options, descriptions)
         else:
             choice = sys.argv[1]
@@ -91,7 +91,9 @@ def main():
         elif choice == 'makedocs':
             os.system(f"cd {dir_path} && python ../docs/make.py")
             print("Documentation saved to docs/.")
-
+        elif choice == 'gencustom':
+            os.system(f"cd {dir_path} && cp .custom_template.py custom.py")
+            print("Generated new algorithms file at quantive/custom.py.")
 
 
 
