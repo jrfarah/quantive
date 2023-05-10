@@ -96,6 +96,25 @@ class Exchange(object):
             self.account = self.api.get_account()
 
 
+    def get_quote(self, ticker: str):
+        """
+            Get last quote by averaging ask and bid for ticker.
+        
+            **Args**:
+        
+            * ticker (str): ticker to look up price of
+        
+            **Returns**:
+        
+            * price (float): price in USD
+        
+        """
+        
+        price_obj = self.api.get_last_quote(ticker)
+        return float(price_obj['askprice'] + float(price_obj['bidprice']))/2. 
+        
+
+
     def print_account(self):
         """
             Print account information for debugging purposes.

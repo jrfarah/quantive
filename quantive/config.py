@@ -87,7 +87,7 @@ class ConfigurationObject(object):
 
             ## check if line is comment ##
             cleaned_line = line.strip('\n').strip()
-            if cleaned_line[0] in ["#", "@", "!"] or len(cleaned_line) < 2:
+            if len(cleaned_line) < 2 or cleaned_line[0] in ["#", "@", "!"]:
                 continue
 
             values = cleaned_line.split(":")

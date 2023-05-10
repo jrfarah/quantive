@@ -112,6 +112,9 @@ def main():
     APIkey      = config_o.config['CONNECT']['apikey']
     APIsecret   = config_o.config['CONNECT']['apisecret']
     trading     = config_o.config['CONNECT']['trading']
+    tickers     = config_o.config['MONITOR']['tickers'].split(',')
+    algo_path   = config_o.config['ALGO']['filepath']
+    endofday    = config_o.config['SELL']['endofday']
 
     ## create exchange object ##
     exchange_object = Exchange(exchange=exchange_id, apikey=APIkey, apisecret=APIsecret, base_url=None, trading=trading)
