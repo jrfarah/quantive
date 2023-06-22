@@ -15,6 +15,8 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 import monitor
 import analysis
 
+import time
+
 
 #------------- prebuy-monitor -------------#
 def prebuy_monitor(tickers, exchange):
@@ -25,12 +27,12 @@ def prebuy_monitor(tickers, exchange):
     lowest_ticker_price, best_ticker = 1e9, None
     for ticker in tickers:
 
-        ticker_price = float(exchange.api.get_last_quote(ticker)['askprice'])
+        ticker_price = float(exchange.api.get_quote(ticker))
         if ticker_price < lowest_ticker_price:
             lowest_ticker_price = ticker_price
             best_ticker = ticker
 
-    if lowest_ticker_price < exchange.
+    return best_ticker
 
 
 
@@ -40,4 +42,7 @@ def presell_monitor(tickers, exchange):
     ## your code goes here. Use the monitor and analysis tools
     ## to construct your strategy!
     
-    return 
+    print("Waiting 10 seconds...")
+    time.sleep(10)
+
+    

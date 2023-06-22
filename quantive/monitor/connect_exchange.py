@@ -12,6 +12,7 @@
 """
 
 #------------- IMPORTS -------------# 
+import time
 import alpaca_trade_api as alpaca
 
 
@@ -87,12 +88,18 @@ class Exchange(object):
                 self.base_url = 'https://api.alpaca.markets'
 
             self.api = alpaca.REST(key_id=self.APIkey, secret_key=self.APIsecret, base_url=self.base_url)
+
+        elif self.exchange == 'simulate':
+            self.api = SimulatedExchange()
+
         else:
             bcolors.failure("Unknown exchange. Exchange class will not function properly.")
 
         ## grab account information ##
         self.account = None
         if self.exchange == 'alpaca' and self.api:
+            self.account = self.api.get_account()
+        elif self.exchange == 'simulate' and self.api:
             self.account = self.api.get_account()
 
 
@@ -110,9 +117,12 @@ class Exchange(object):
         
         """
         
-        price_obj = self.api.get_last_quote(ticker)
-        return float(price_obj['askprice'] + float(price_obj['bidprice']))/2. 
-        
+        if self.exchange == 'alpaca':
+            price_obj = self.api.get_last_quote(ticker)
+            return float(price_obj['askprice'] + float(price_obj['bidprice']))/2. 
+        elif self.exchange == 'simulate':
+            return self.api.get_quote(ticker)
+            
 
 
     def print_account(self):
@@ -163,6 +173,8 @@ class Exchange(object):
               type=order_type, 
               time_in_force=time_in_force # Good 'til cancelled
             )
+        elif self.exchange == 'simulate':
+            self.api.buy(ticker, quantity)
 
 
     def sell(self, ticker: str, quantity: float, price: float, spend: float, order_type='market', time_in_force='gtc'):
@@ -190,6 +202,8 @@ class Exchange(object):
               type=order_type, 
               time_in_force=time_in_force # Good 'til cancelled
             )
+        elif self.exchange == 'simulate':
+            self.api.sell(ticker, quantity)
 
 
     # def sell_all(self, ticker: str, order_type='market', time_in_force='gtc'): ## TODO
@@ -198,9 +212,159 @@ class Exchange(object):
         
 
 
+class SimulatedExchange(object):
+    """
+    Exchange simulator. If the market is closed or offline, or you want to test out
+    your strategies/quantive, you can use this. It mimics a real exchange but uses 
+    fake data to simulate trading values.
+    """ 
+
+    def __init__(self):
+
+        self.function_parameters = {}
+        """ A dictionary that contains function parameters (value) for each ticker (key)."""
+        self.account = {
+            'cash':30000.,
+        }
+        """ Dictionary containing acount information--specifically cash and assets """
+        self.fees = {
+            'type':'%',
+            'amount':0.002
+        }
+        """ Fee type and amount. Type options: "%" (percentage of trade) and "$" (fixed amount)"""
+
+    @staticmethod
+    def price_function(t: float, a: float, b: float, c: float, d: float, e: float, f: float):
+        """
+            Get price given time and function parametes.
+        
+            **Args**:
+        
+            * t (float): timestamp
+            * a,b,c,d,e,f (float): function parameters
+        
+            **Returns**:
+        
+            * price (float): simulated price 
+        
+        """
+         
+    def get_account(self):
+        """
+            Return account information
+        
+            **Args**:
+        
+            * none (none): none
+        
+            **Returns**:
+        
+            * account (dict): account dictionary attribute
+        
+        """
+
+        return self.account
+         
+        
+    def get_quote(self, ticker: str):
+        """
+            Get quote for a ticker. Generates a random value based on functional form.
+        
+            **Args**:
+        
+            * ticker (str): ticker to obtain quote for
+        
+            **Returns**:
+        
+            * price (float): current price of ticker
+        
+        """
+
+        if ticker not in list(self.function_parameters.keys()):
+            self.function_parameters[ticker] = list(np.random.uniform(0, 10, 6))
+            return self.get_quote(ticker)
+
+        else:
+            return SimulatedExchange.price_function(time.time, *self.function_parameters[ticker])
+
+
+    def buy(self, ticker: str, quantity: float):
+        """
+            Perform a simulated buy.
+        
+            **Args**:
+        
+            * ticker (str): ticker to buy
+            * quantity (float): amount of ticker to buy
+        
+            **Returns**:
+        
+            * none (none): none
+        
+        """
+
+        ## compute cost ##
+        current_quote = self.get_quote(ticker)
+        cost = current_quote * quantity
+        if self.fees['type'] == '%':
+            cost *= 1 + self.fees['amount']
+        elif self.fees['type'] == '$':
+            cost += self.fees['amount']
+
+        ## subtract cost from account ##
+        self.account['cash'] -= cost
+
+        ## add assets ##
+        if ticker in list(self.account.keys()):
+            self.account[ticker] += quantity
+        else:
+            self.account[ticker] = quantity
+
+    def sell(self, ticker: str, quantity: float, sell_all=False):
+        """
+            Perform a simulated sell
+        
+            **Args**:
+        
+            * ticker (str): ticker to sell
+            * quantity (float): amount to sell
+            * sell_all (bool): sell all held assets of <ticker>
+        
+            **Returns**:
+        
+            * none (none): none
+        
+        """
+         
         
 
+        if sell_all is True:
+            quantity = self.account[ticker]
+
+        ## compute value of sale ##
+        current_quote = self.get_quote(ticker)
+        value = current_quote * quantity
+
+        if self.fees['type'] == '%':
+            value *= 1 - self.fees['amount']
+        elif self.fees['type'] == '$':
+            value -= self.fees['amount']
+
+        ## add value to account ##
+        self.account['cash'] += value
+
+        ## remove assets ##
+        self.account[ticker] -= quantity
+
+
+
+
+
+
+         
         
+
+
 
 
 
