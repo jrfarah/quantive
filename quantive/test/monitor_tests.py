@@ -23,6 +23,11 @@ class TestMonitor(unittest.TestCase):
         self.assertTrue(exchange_object.get_quote("AAPL") is not None)
         print(exchange_object.get_quote("AAPL"))
 
+    def test_getprice_simulated(self):
+        exchange_id = 'simulate'
+        exchange_object = connect_exchange.Exchange(exchange=exchange_id, apikey=APIkey, apisecret=APIsecret, base_url=None, trading=trading)
+        self.assertTrue(exchange_object.get_quote("AAPL") is not None)
+
 
 
 if __name__ == '__main__':

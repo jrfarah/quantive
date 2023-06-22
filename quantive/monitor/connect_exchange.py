@@ -13,6 +13,7 @@
 
 #------------- IMPORTS -------------# 
 import time
+import numpy as np
 import alpaca_trade_api as alpaca
 
 
@@ -248,6 +249,7 @@ class SimulatedExchange(object):
             * price (float): simulated price 
         
         """
+        return a*np.sin(b*t) + c*np.sin(d*t) + e*np.sin(f*t) 
          
     def get_account(self):
         """
@@ -285,7 +287,7 @@ class SimulatedExchange(object):
             return self.get_quote(ticker)
 
         else:
-            return SimulatedExchange.price_function(time.time, *self.function_parameters[ticker])
+            return abs(SimulatedExchange.price_function(time.time(), *self.function_parameters[ticker]))
 
 
     def buy(self, ticker: str, quantity: float):
