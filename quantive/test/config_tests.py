@@ -2,7 +2,6 @@ import sys
 sys.path.append('../')
 
 from config import ConfigurationObject
-
 import unittest
 
 class TestConfigMethods(unittest.TestCase):
@@ -29,6 +28,13 @@ class TestConfigMethods(unittest.TestCase):
         config_obj = ConfigurationObject("../example.config")
         self.assertEqual(config_obj.config["CONNECT"]['testkey2'], "testval2")
 
+    def test_print_group(self):
+        config_obj = ConfigurationObject("../example.config")
+        config_obj.add_key("CONNECT", "testkey2", "testval2")
+        config_obj.save("../example.config")
+        config_obj = ConfigurationObject("../example.config")
+        test = config_obj.print_group("CONNECT")
+        self.assertEqual(test, {'exchange': 'alpaca', 'apikey': 'KEY', 'apisecret': 'SECRET', 'testkey2': 'testval2'})
 
 
 if __name__ == '__main__':

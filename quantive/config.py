@@ -188,6 +188,35 @@ class ConfigurationObject(object):
          
         
         
+    def print_group(self, group):
+        """
+            Prints the current configuration file
+            
+            **Args**:
+
+            * group (str): group (e.g., CONNECT, BUY, etc)
+            * key (str): existing key to remove. Put NONE to remove
+            entire group.
+        
+            **Returns**:
+        
+            The current configuration groups
+        
+        """      
+
+        #KeyValue = self.config[group][key]
+        
+        GroupValue = self.config[group]
+
+        GroupValueLength = len(GroupValue)
+        for i in range(0, GroupValueLength):
+            GroupKeys = dict(list(GroupValue.items())[i:i+1])
+            GroupKeysString = str(GroupKeys)
+            GroupKeysStringReplace = GroupKeysString.replace("'", '')
+            print((GroupKeysStringReplace)[1:-1])
+
+
+        return GroupValue #format of the group
         
          
         
