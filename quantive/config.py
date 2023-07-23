@@ -188,6 +188,36 @@ class ConfigurationObject(object):
          
         
         
+    def print_group(self, group):
+        """
+            Prints the groups and keys of the current configuration file
+            
+            **Args**:
+
+            * group (str): group (e.g., CONNECT, BUY, etc)
+        
+            **Returns**:
+        
+            The current groups and keys of the configuration file. e.g
+            
+            exchange: alpaca
+            apikey: KEY
+            apisecret: SECRET
+            testkey2: testval2
+        
+        """      
+        
+        GroupValue = self.config[group]
+
+        GroupValueLength = len(GroupValue)
+        for i in range(0, GroupValueLength):
+            GroupKeys = dict(list(GroupValue.items())[i:i+1])
+            GroupKeysString = str(GroupKeys)
+            GroupKeysStringReplace = GroupKeysString.replace("'", '')
+            print((GroupKeysStringReplace)[1:-1])
+
+
+        return GroupValue #format of the group
         
          
         

@@ -45,4 +45,5 @@ def presell_monitor(tickers, exchange):
     print("Waiting 10 seconds...")
     time.sleep(10)
 
+
     
