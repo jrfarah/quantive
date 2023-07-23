@@ -190,21 +190,22 @@ class ConfigurationObject(object):
         
     def print_group(self, group):
         """
-            Prints the current configuration file
+            Prints the groups and keys of the current configuration file
             
             **Args**:
 
             * group (str): group (e.g., CONNECT, BUY, etc)
-            * key (str): existing key to remove. Put NONE to remove
-            entire group.
         
             **Returns**:
         
-            The current configuration groups
+            The current groups and keys of the configuration file. e.g
+            
+            exchange: alpaca
+            apikey: KEY
+            apisecret: SECRET
+            testkey2: testval2
         
         """      
-
-        #KeyValue = self.config[group][key]
         
         GroupValue = self.config[group]
 
